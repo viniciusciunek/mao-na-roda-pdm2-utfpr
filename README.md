@@ -21,7 +21,7 @@ O **Mão na Roda** é um aplicativo móvel projetado para simplificar o gerencia
 
 ## Protótipos de Tela
 
-Link para os protótipos de tela no Figma: [Protótipos Mão na Roda](https://www.figma.com)  
+Link para os protótipos de tela no Figma: [Protótipos Mão na Roda](https://www.figma.com/design/xMkDfyCfqBTDmqUxX4BtbJ/M%C3%A3o-na-Roda?node-id=0-1&t=dzKJAiyn0vuh20Bf-1)  
 
 ---
 
