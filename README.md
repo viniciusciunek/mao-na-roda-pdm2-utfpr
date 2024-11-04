@@ -50,3 +50,18 @@ Link para os protótipos de tela no Figma: [Protótipos Mão na Roda](https://ww
 
 ### Sprint 4 (Semana 4)
 - Testes finais, ajustes e preparação para a entrega do APK
+
+---
+
+## Executando o projeto
+
+```
+git clone https://github.com/viniciusciunek/mao-na-roda-pdm2-utfpr
+
+cd cd mao-na-roda-pdm2-utfpr/
+
+yarn
+
+yarn start --tunnel
+
+```
