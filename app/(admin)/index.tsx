@@ -1,0 +1,27 @@
+import { View, Text, Button } from 'react-native';
+import React from 'react';
+import { useRouter } from 'expo-router';
+
+import pb from '../../src/services/pocketbase';
+import useAuth from '../../src/store/useAuth';
+
+/**
+ * Tela principal do administrador.
+ */
+export default function AdminScreen() {
+    const { logout } = useAuth();
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        pb.authStore.clear();
+        await logout();
+        router.replace('/(guest)/login');
+    };
+
+    return (
+        <View>
+            <Text>admin screen</Text>
+            <Button title="Logout" onPress={handleLogout} />
+        </View>
+    );
+}
