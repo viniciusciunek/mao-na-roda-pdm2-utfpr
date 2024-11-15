@@ -1,9 +1,10 @@
+import "../global.css";
+
 import React, { useEffect, useState } from 'react';
 import { Stack, useRouter } from 'expo-router';
 import { ThemeProvider, createTheme } from '@rneui/themed';
 
 import { useFonts, Poppins_700Bold, Poppins_400Regular } from '@expo-google-fonts/poppins'
-// import {} from '@expo-google-fonts/nunito'
 
 import useAuth from '../src/store/useAuth';
 import Loading from '../src/components/Loading';
