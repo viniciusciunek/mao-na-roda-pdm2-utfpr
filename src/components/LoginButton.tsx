@@ -15,7 +15,7 @@ interface PrimaryButtonProps {
     onPress?: () => void;
 }
 
-export default function PrimaryButton({ text, textColor, backgroundColor, border, borderColor, icon, iconSize, iconColor, onPress }: PrimaryButtonProps) {
+export default function LoginButton({ text, textColor, backgroundColor, border, borderColor, icon, iconSize, iconColor, onPress }: PrimaryButtonProps) {
     const { theme } = useTheme();
 
     return (

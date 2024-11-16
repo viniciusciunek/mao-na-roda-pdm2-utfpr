@@ -25,7 +25,7 @@ function AuthWrapper() {
                     router.replace('/(customer)/');
                 }
             } else {
-                router.replace('/(guest)/login');
+                router.replace('/(guest)/');
             }
         }
     }, [loading, user, role]);

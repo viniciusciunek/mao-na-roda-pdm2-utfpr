@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
-
-import { useFonts, Poppins_900Black } from '@expo-google-fonts/poppins'
-
-import Loading from '../../src/components/Loading';
 import { Stack } from 'expo-router';
 
-export default function Layout() {
+import Loading from '../../src/components/Loading';
+
+import { useFonts, Poppins_900Black, Poppins_700Bold } from '@expo-google-fonts/poppins'
+import { Nunito_900Black, Nunito_400Regular, Nunito_200ExtraLight } from '@expo-google-fonts/nunito'
+
+export default function _layoutGuest() {
     let [fontsLoaded] = useFonts({
-        Poppins_900Black
+        Poppins_900Black,
+        Nunito_900Black,
+        Nunito_400Regular,
+        Nunito_200ExtraLight,
+        Poppins_700Bold
     });
 
     if (!fontsLoaded) {
@@ -15,6 +19,6 @@ export default function Layout() {
     }
 
     return (
-        <Stack />
+        <Stack screenOptions={{ headerShown: false }} />
     );
 }
