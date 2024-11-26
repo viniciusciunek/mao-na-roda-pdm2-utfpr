@@ -1,7 +1,5 @@
-import { useTheme } from '@rneui/themed';
-import { Button } from '@rneui/base';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import { View, Text } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 interface PrimaryButtonProps {
     text?: string;
@@ -9,40 +7,25 @@ interface PrimaryButtonProps {
     backgroundColor?: string;
     border?: boolean;
     borderColor?: string;
-    icon: string;
+    icon?: string;
     iconSize?: number;
     iconColor?: string;
     onPress?: () => void;
 }
 
-export default function LoginButton({ text, textColor, backgroundColor, border, borderColor, icon, iconSize, iconColor, onPress }: PrimaryButtonProps) {
-    const { theme } = useTheme();
+export default function LoginButton({ text, textColor, backgroundColor, border, borderColor, icon, iconSize = 24, iconColor, onPress, }: PrimaryButtonProps) {
 
     return (
-        <View >
-            <Button buttonStyle={{
-                padding: 16,
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 8,
-                alignSelf: 'stretch',
-                borderRadius: 32,
-                width: '100%',
-                minWidth: 400,
-                height: 56,
-                backgroundColor: backgroundColor || theme.colors.secondary,
+        <TouchableOpacity className={`p-4 flex-row justify-center items-center gap-2 self-stretch rounded-3xl w-full min-w-[400px] h-14 ${border ? 'border' : ''}`}
+            style={{
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
                 borderWidth: border ? 2 : 0,
-                borderColor: borderColor || theme.colors.greyOutline,
             }} onPress={onPress} >
-                <Text style={{
-                    color: textColor || theme.colors.primary,
-                    fontSize: 16,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    fontFamily: 'Poppins_700Bold',
-                }} >{text}</Text>
-                <AntDesign name={icon} size={iconSize} color={iconColor} />
-            </Button>
-        </View>
-    )
+
+            {text && (<Text className="text-base font-bold text-center font-poppins_bold" style={{ color: textColor }}>{text}</Text>)}
+
+            <FontAwesome6 name={icon || ''} color={iconColor} size={iconSize} />
+        </TouchableOpacity>
+    );
 }

@@ -1,17 +1,15 @@
 import "../global.css";
 
-import React, { useEffect, useState } from 'react';
-import { Stack, useRouter } from 'expo-router';
-import { ThemeProvider, createTheme } from '@rneui/themed';
+import React, { useEffect } from "react";
+import { Stack, useRouter, usePathname } from 'expo-router';
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { useFonts, Poppins_700Bold, Poppins_400Regular } from '@expo-google-fonts/poppins'
+import { useFonts, Poppins_700Bold, Poppins_900Black, Poppins_400Regular } from "@expo-google-fonts/poppins";
+import { Nunito_900Black, Nunito_400Regular, Nunito_200ExtraLight } from "@expo-google-fonts/nunito";
 
-import useAuth from '../src/store/useAuth';
-import Loading from '../src/components/Loading';
+import useAuth from "../src/store/useAuth";
+import Loading from "../src/components/Loading";
 
-/**
- * Componente que gerencia a autenticação e redirecionamento de usuários.
- */
 function AuthWrapper() {
     const { user, role, loading } = useAuth();
     const router = useRouter();
@@ -19,59 +17,41 @@ function AuthWrapper() {
     useEffect(() => {
         if (!loading) {
             if (user) {
-                if (role === 'admin') {
-                    router.replace('/(admin)/');
-                } else if (role === 'customer') {
-                    router.replace('/(customer)/');
+                if (role === "admin") {
+                    router.replace("/(admin)");
+                } else if (role === "customer") {
+                    router.replace("/(customer)");
                 }
             } else {
-                router.replace('/(guest)/');
+                router.replace("/");
+                router.navigate("/");
+                router.push("/");
             }
         }
     }, [loading, user, role]);
 
     if (loading) return <Loading />;
 
-    return <Stack />;
+    return <Stack screenOptions={{ headerShown: false }} />;
 }
 
-/**
- * Criando um tema para aplicação usando o Native Elements.
- */
-const theme = createTheme({
-    lightColors: {
-        primary: '#e7e7e8',
-        secondary: '#0E3087',
-        grey0: '#F5FFFA',
-        grey1: "#F3F4F6",
-        greyOutline: '#0E3087'
-    },
-    darkColors: {
-        primary: '#333639',
-        secondary: '#0E3087',
-        grey0: '#F5FFFA',
-        grey1: "#F3F4F6",
-        greyOutline: '#0E3087'
-    },
-    mode: 'light',
-});
-
-/**
- * Componente de layout principal que aplica o tema e gerencia a autenticação.
- */
 export default function Layout() {
     let [fontsLoaded] = useFonts({
         Poppins_700Bold,
-        Poppins_400Regular
+        Poppins_400Regular,
+        Poppins_900Black,
+        Nunito_900Black,
+        Nunito_400Regular,
+        Nunito_200ExtraLight,
     });
 
     if (!fontsLoaded) {
-        return <Loading />
+        return <Loading />;
     }
 
     return (
-        <ThemeProvider theme={theme}>
+        <SafeAreaProvider>
             <AuthWrapper />
-        </ThemeProvider>
+        </SafeAreaProvider>
     );
 }

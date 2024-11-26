@@ -31,7 +31,11 @@ const useAuth = create<UseAuth>()(
             loading: false,
             setLoading: (loading: boolean) => set({ loading }),
             setData: ({ user, token, role }) => set({ user, token, role, loading: false }),
-            logout: () => set({ user: null, token: null, role: null, loading: false }),
+            logout: async () => {
+                set({ user: null, token: null, role: null, loading: false });
+                await AsyncStorage.removeItem("user-state-key-in-asyncstorage");
+            },
+            // logout: () => set({ user: null, token: null, role: null, loading: false }),
         }),
         {
             name: "user-state-key-in-asyncstorage",

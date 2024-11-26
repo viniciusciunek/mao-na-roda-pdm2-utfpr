@@ -15,7 +15,9 @@ export default function CustomerScreen() {
     const handleLogout = async () => {
         pb.authStore.clear();
         await logout();
-        router.replace('/(guest)/login');
+
+        router.replace('/');
+        router.push('/');
     };
 
     return (
