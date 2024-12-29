@@ -1,7 +1,7 @@
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import React from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 
 interface CardOptionProps {
     title: string;
@@ -12,11 +12,15 @@ interface CardOptionProps {
 }
 
 export default function CardOption({ title, icon, iconColor, iconSize, link }: CardOptionProps) {
-    return (
-        <Link href={link} className='bg-gray-300 shadow rounded-lg flex flex-col justify-center items-center p-8 gap-4 w-48 truncate'>
-            <FontAwesome6 name={icon || ''} color={iconColor} size={iconSize} />
+    const router = useRouter();
 
-            <Text className='font-nunito_regular text-gray-900 uppercase'>{title}</Text>
+    return (
+        <Link href={link} asChild push>
+            <TouchableOpacity className='flex flex-col items-center justify-center w-48 gap-2 bg-gray-300 rounded-lg shadow h-36'>
+                <FontAwesome6 name={icon || ''} color={iconColor} size={iconSize} />
+
+                <Text className='text-center text-gray-900 uppercase font-nunito_regular'>{title}</Text>
+            </TouchableOpacity>
         </Link>
     )
 }

@@ -1,20 +1,16 @@
-import { Admin } from "../types/Admin";
-import { Customer } from "../types/Customer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 type UseAuthState = {
-    user: Admin | Customer | null;
-    token: string | null;
-    role: string | null;
     loading: boolean;
+    role: string | null;
 }
 
 type UseAuthActions = {
-    setLoading: (loading: boolean) => void;
-    setData: (data: { user: Admin | Customer, token: string, role: string }) => void;
+    setRole: (role: string) => void;
     logout: () => void;
+    setLoading: (loading: boolean) => void;
 }
 
 type UseAuth = UseAuthState & UseAuthActions;
@@ -25,20 +21,14 @@ type UseAuth = UseAuthState & UseAuthActions;
 const useAuth = create<UseAuth>()(
     persist(
         (set) => ({
-            user: null,
-            token: null,
             role: null,
             loading: false,
-            setLoading: (loading: boolean) => set({ loading }),
-            setData: ({ user, token, role }) => set({ user, token, role, loading: false }),
-            logout: async () => {
-                set({ user: null, token: null, role: null, loading: false });
-                await AsyncStorage.removeItem("user-state-key-in-asyncstorage");
-            },
-            // logout: () => set({ user: null, token: null, role: null, loading: false }),
+            setLoading: (loading) => set({ loading }),
+            setRole: (role) => set({ role }),
+            logout: () => set({ role: null }),
         }),
         {
-            name: "user-state-key-in-asyncstorage",
+            name: "user-role-key-in-asyncstorage",
             storage: createJSONStorage(() => AsyncStorage),
         }
     )
