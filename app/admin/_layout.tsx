@@ -1,6 +1,6 @@
-import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
+import React from 'react';
 
 export default function TabLayout() {
     return (
@@ -8,14 +8,13 @@ export default function TabLayout() {
             screenOptions={{
                 tabBarActiveTintColor: 'white',
                 tabBarInactiveTintColor: '#7089CB',
-                headerTitle: "Mão na Roda",
+                headerTitle: "Mão na Roda - Administrador",
                 headerTitleStyle: {
                     color: 'white',
                     fontFamily: 'Nunito_900Black',
                 },
                 headerStyle: {
                     backgroundColor: '#0E3087',
-                    // height: 60,
                 },
                 tabBarStyle: {
                     backgroundColor: '#0E3087',
@@ -30,7 +29,7 @@ export default function TabLayout() {
             }}
         >
             <Tabs.Screen
-                name="index"
+                name="home"
                 options={{
                     title: 'Home',
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
@@ -38,10 +37,40 @@ export default function TabLayout() {
             />
 
             <Tabs.Screen
-                name="test"
+                name="budget/create"
                 options={{
-                    title: 'Teste Porrona',
-                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
+                    href: null,
+                    headerTitle: 'Criar Orçamento',
+                }}
+            />
+
+            {/* Products */}
+            <Tabs.Screen
+                name="product/products"
+                options={{
+                    href: null,
+                    headerTitle: 'Lista dos Produtos',
+                    tabBarStyle: { display: 'none' }
+                }}
+            />
+
+            <Tabs.Screen
+                name="product/create"
+                options={{
+                    href: null,
+                    headerTitle: 'Criar Produto',
+                    // tabBarHideOnKeyboard: true, // legal para esconder quando digita
+                    tabBarStyle: { display: 'none' }
+                }}
+            />
+
+            <Tabs.Screen
+                name="product/view"
+                initialParams={{ id: '' }}
+                options={{
+                    href: null,
+                    headerTitle: 'Editando Produto',
+                    tabBarStyle: { display: 'none' }
                 }}
             />
         </Tabs>

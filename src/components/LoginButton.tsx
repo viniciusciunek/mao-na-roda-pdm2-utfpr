@@ -1,3 +1,4 @@
+import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
@@ -16,7 +17,7 @@ interface PrimaryButtonProps {
 export default function LoginButton({ text, textColor, backgroundColor, border, borderColor, icon, iconSize = 24, iconColor, onPress, }: PrimaryButtonProps) {
 
     return (
-        <TouchableOpacity className={`p-4 flex-row justify-center items-center gap-2 self-stretch rounded-3xl w-full min-w-[400px] h-14 ${border ? 'border' : ''}`}
+        <TouchableOpacity className={`p-4 flex-row justify-center items-center gap-2 self-stretch rounded-3xl w-full h-14 ${border ? 'border' : ''}`}
             style={{
                 backgroundColor: backgroundColor,
                 borderColor: borderColor,
