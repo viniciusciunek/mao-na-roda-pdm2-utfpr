@@ -1,6 +1,6 @@
 import React from 'react'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { View, Text, TextInput as Input, KeyboardTypeOptions } from 'react-native'
+import { View, Text, TextInput, KeyboardTypeOptions } from 'react-native'
 
 interface TextInputProps {
     label: string;
@@ -14,7 +14,7 @@ interface TextInputProps {
     keyboardType?: KeyboardTypeOptions;
 }
 
-export default function TextInput({ label, placeholder, icon, iconSize = 24, iconColor, value, onChangeText, textContentType, keyboardType }: TextInputProps) {
+export default function CustomTextInput({ label, placeholder, icon, iconSize = 24, iconColor, value, onChangeText, textContentType, keyboardType }: TextInputProps) {
     const handleTextChange = (text: string) => {
         const sanitizedText = text.replace(',', '.');
 
@@ -28,7 +28,7 @@ export default function TextInput({ label, placeholder, icon, iconSize = 24, ico
             <View className='flex flex-row items-center justify-start bg-transparent border border-[#0E3087] rounded-xl h-14'>
                 <FontAwesome6 className="p-4" name={icon || ''} color={iconColor} size={iconSize} />
 
-                <Input
+                <TextInput
                     placeholder={placeholder}
                     className='w-full h-full outline-none'
                     onChangeText={handleTextChange}

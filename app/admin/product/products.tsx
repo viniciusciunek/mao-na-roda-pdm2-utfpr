@@ -26,11 +26,13 @@ export default function _screen() {
 
             setProducts(data);
         } catch (error) {
+            console.log(error);
+
             setTimeout(async () => {
                 Toast.show({
                     type: 'error',
                     text1: 'Erro',
-                    text2: 'Preencha todos os campos para cadastrar um produto.',
+                    text2: 'Erro ao carregar os produtos.',
                     visibilityTime: 3000
                 });
             }, 100);

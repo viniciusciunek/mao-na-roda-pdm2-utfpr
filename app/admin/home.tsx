@@ -11,9 +11,9 @@ export default function _screen() {
     const { logout } = useAuth();
     const router = useRouter();
 
-    const handleLogout = async () => {
-        await pb.authStore.clear();
-        await logout();
+    const handleLogout = () => {
+        pb.authStore.clear();
+        logout();
         router.push("/");
     };
 

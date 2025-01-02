@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
-import TextInput from '../../../src/components/TextInput'
+import TextInput from '../../../src/components/CustomTextInput'
 import SuccessButton from '../../../src/components/SuccessButton';
 import { router } from 'expo-router';
 import Toast from 'react-native-toast-message';

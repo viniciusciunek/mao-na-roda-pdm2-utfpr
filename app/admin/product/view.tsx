@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import TextInput from '../../../src/components/TextInput'
+import TextInput from '../../../src/components/CustomTextInput'
 import SuccessButton from '../../../src/components/SuccessButton'
 import { Product } from '../../../src/types/Product'
 import Loading from '../../../src/components/Loading'
