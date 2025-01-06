@@ -1,6 +1,6 @@
-import pb from "../services/pocketbase";
 import { Customer } from "../types/Customer";
 import { ICustomerRepository } from './../interfaces/ICustomerRepository';
+import pb from "../services/pocketbase";
 
 export default class CustomerRepository implements ICustomerRepository {
     async getAllCustomers(): Promise<Customer[]> {

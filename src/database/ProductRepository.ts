@@ -1,6 +1,6 @@
-import pb from "../services/pocketbase";
-import { Product } from "../types/Product";
 import { IProductRepository } from "../interfaces/IProductRepository";
+import { Product } from "../types/Product";
+import pb from "../services/pocketbase";
 
 export default class ProductRepository implements IProductRepository {
     async getAllProducts(): Promise<Product[]> {

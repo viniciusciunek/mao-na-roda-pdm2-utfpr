@@ -17,10 +17,10 @@ type CustomPickerProps = {
 
 export default function CustomPicker({ items, selectedValue, onValueChange, label, icon, iconSize = 24, iconColor, style }: CustomPickerProps) {
     return (
-        <View className={`gap-1 ${style}`}>
+        <View className={`gap-1`}>
             {label && <Text className="ml-2 font-nunito_regular">{label}</Text>}
 
-            <View className="flex flex-row items-center justify-start bg-transparent border border-[#0E3087] rounded-md h-10">
+            <View className={`flex flex-row items-center justify-start bg-transparent border border-[#0E3087] rounded-md h-10 ${style}`}>
                 {icon && (
                     <FontAwesome6
                         className="p-4"

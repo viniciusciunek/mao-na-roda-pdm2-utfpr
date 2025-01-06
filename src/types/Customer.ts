@@ -7,6 +7,4 @@ export type Customer = {
     verified: boolean;
     cnpj?: string;
     cpf?: string;
-    created: Date;
-    updated: Date;
 }

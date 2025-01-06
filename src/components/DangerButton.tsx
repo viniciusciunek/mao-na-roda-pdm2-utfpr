@@ -13,9 +13,9 @@ interface SuccessButtonProps {
     style?: string;
 }
 
-export default function SuccessButton({ label, icon, iconSize = 24, iconColor, onPress, right = false, style }: SuccessButtonProps) {
+export default function DangerButton({ label, icon, iconSize = 24, iconColor, onPress, right = false, style }: SuccessButtonProps) {
     return (
-        <TouchableOpacity className={`flex ${right ? 'flex-row' : 'flex-row-reverse'} items-center justify-evenly p-2 w-full text-center bg-green-500 rounded-md ${style}`} onPress={onPress}>
+        <TouchableOpacity className={`flex ${right ? 'flex-row' : 'flex-row-reverse'} items-center justify-evenly p-2 w-full text-center bg-red-500 rounded-md ${style}`} onPress={onPress}>
             <Text className='font-bold text-white uppercase'>{label}</Text>
 
             {icon && <FontAwesome6 name={icon || ''} color={iconColor} size={iconSize} />}

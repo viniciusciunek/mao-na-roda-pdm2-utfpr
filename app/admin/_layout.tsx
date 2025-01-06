@@ -1,8 +1,8 @@
+import React, { useEffect } from 'react';
+
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
-import React, { useEffect } from 'react';
 import useAuth from '../../src/store/useAuth';
-import pb from '../../src/services/pocketbase';
 
 export default function TabLayout() {
     const { user, role } = useAuth();
@@ -37,7 +37,9 @@ export default function TabLayout() {
         >
             <Tabs.Screen name="home" options={{ title: 'Home', tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} /> }} />
 
-            <Tabs.Screen name="budget/create" options={{ href: null, headerTitle: 'Criar Orçamento' }} />
+            <Tabs.Screen name="budget/create" options={{ href: null, headerTitle: 'Novo Orçamento' }} />
+
+            <Tabs.Screen name="budget/show" options={{ href: null, headerTitle: 'Novo Orçamento' }} />
 
             <Tabs.Screen name="product/products" options={{ href: null, headerTitle: 'Lista dos Produtos', tabBarStyle: { display: 'none' } }} />
 

@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, Touchable, TouchableOpacity, View } from 'react-native'
+
+import BudgetItemRepository from '../../../src/database/BudgetItemRepository';
+import BudgetRepository from '../../../src/database/BudgetRepository';
+import CustomCurrencyInput from '../../../src/components/CustomCurrencyInput';
 import CustomPicker from '../../../src/components/CustomPicker';
+import CustomTextInput from '../../../src/components/CustomTextInput';
 import { Customer } from '../../../src/types/Customer';
 import CustomerRepository from '../../../src/database/CustomerRepository';
-import Toast from 'react-native-toast-message';
-import ProductRepository from '../../../src/database/ProductRepository';
+import DangerButton from '../../../src/components/DangerButton';
 import { Product } from '../../../src/types/Product';
-import CustomCurrencyInput from '../../../src/components/CustomCurrencyInput';
-import CustomTextInput from '../../../src/components/CustomTextInput';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import ProductRepository from '../../../src/database/ProductRepository';
+import SuccessButton from '../../../src/components/SuccessButton';
+import Toast from 'react-native-toast-message';
+import { useRouter } from 'expo-router';
 
 const customerRepository = new CustomerRepository();
 const productRepository = new ProductRepository();
-
+const budgetRepository = new BudgetRepository();
+const budgetItemRepository = new BudgetItemRepository();
 
 export default function _screen() {
+    const router = useRouter();
+
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [customer, setCustomer] = useState<Customer | null>(null);
 
@@ -28,11 +36,16 @@ export default function _screen() {
 
     const [total, setTotal] = useState<number>(0);
 
+    const [obs, setObs] = useState<string>('');
+
     const resetFields = () => {
         setCustomer(null);
         setProduct(null);
         setQuantity(0);
         setPrice(0);
+        setObs('');
+        setBudgetItems([]);
+        setTotal(0);
     }
 
     const fetchAllCustomers = async () => {
@@ -101,6 +114,81 @@ export default function _screen() {
         setPrice(0);
     }
 
+    const cancelBudget = () => {
+        resetFields();
+
+        router.canGoBack() && router.back();
+    }
+
+    const saveBudget = async () => {
+        if (!customer || !budgetItems.length || total <= 0) {
+            Toast.show({
+                type: 'error',
+                text1: 'Erro',
+                text2: 'Verifique os campos do formulário antes de salvar.',
+                visibilityTime: 3000
+            });
+            return;
+        }
+
+        try {
+            const newBudget = await budgetRepository.createBudget({
+                customer_id: customer.id,
+                status: 'pending_aprove',
+                is_cancelled: false,
+                is_paid: false,
+                due_date: new Date(new Date().setDate(new Date().getDate() + 30)), // hoje + 30 dias
+                total,
+                obs,
+            });
+
+            for (const item of budgetItems) {
+                try {
+                    if (!item.product.id) {
+                        throw new Error('Produto inválido: ID não encontrado');
+                    }
+
+                    await budgetItemRepository.createBudgetItem({
+                        budget_id: newBudget.id!,
+                        product_id: item.product.id,
+                        quantity: item.quantity,
+                        unit_price: item.price / item.quantity,
+                        total_price: item.price,
+                    });
+                } catch (error) {
+                    console.error('Erro ao criar item do orçamento:', error);
+                }
+            }
+
+            Toast.show({
+                type: 'success',
+                text1: 'Sucesso',
+                text2: 'Orçamento salvo com sucesso!',
+                visibilityTime: 3000
+            });
+
+            resetFields();
+
+            router.push({
+                pathname: '/admin/budget/show',
+                params: {
+                    budget: newBudget.id,
+                    customer: customer.id,
+                    items: JSON.stringify(budgetItems),
+                },
+            });
+        } catch (error) {
+            console.error('Erro ao salvar orçamento:', error);
+            Toast.show({
+                type: 'error',
+                text1: 'Erro',
+                text2: 'Erro ao salvar o orçamento. Tente novamente.',
+                visibilityTime: 3000
+            });
+        }
+    };
+
+
     useEffect(() => {
         resetFields();
 
@@ -158,10 +246,9 @@ export default function _screen() {
                         <View className="flex-1">
                             <CustomCurrencyInput
                                 label="Valor:"
-                                placeholder="0,00"
                                 prefix="R$"
-                                value={price.toString()}
-                                onChangeText={(formattedValue) => setPrice(Number(formattedValue.replace(/[^0-9]/g, '')) / 100)}
+                                value={price}
+                                onChangeText={(value) => setPrice(value)}
                             />
                         </View>
 
@@ -192,6 +279,27 @@ export default function _screen() {
                             <Text className="w-1/2 p-2 text-center border font-nunito_xligth">VALOR TOTAL</Text>
                             <Text className="w-1/2 p-2 text-center border font-nunito_xligth">R$ {total.toFixed(2)}</Text>
                         </View>
+                    </View>
+                </View>
+
+                <View>
+                    <CustomTextInput
+                        label="Observações:"
+                        multiline
+                        numberOfLines={4}
+                        textAlignVertical='top'
+                        placeholder="Digite aqui as observações do orçamento."
+                        value={obs}
+                        onChangeText={setObs}
+                    />
+                </View>
+
+                <View className='flex flex-row w-full gap-2 mt-2'>
+                    <View className="flex-1">
+                        <DangerButton label='cancelar' onPress={cancelBudget} />
+                    </View>
+                    <View className="flex-1">
+                        <SuccessButton label='concluir' onPress={saveBudget} />
                     </View>
                 </View>
                 {/* } */}
