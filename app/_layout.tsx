@@ -1,20 +1,27 @@
 import "../global.css";
 
+import { Nunito_200ExtraLight, Nunito_400Regular, Nunito_900Black } from "@expo-google-fonts/nunito";
+import { Poppins_400Regular, Poppins_700Bold, Poppins_900Black, useFonts } from "@expo-google-fonts/poppins";
 import React, { useEffect } from "react";
-import { Stack, useRouter, usePathname } from 'expo-router';
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Stack, useGlobalSearchParams, useLocalSearchParams, usePathname, useRouter } from 'expo-router';
 
-import { useFonts, Poppins_700Bold, Poppins_900Black, Poppins_400Regular } from "@expo-google-fonts/poppins";
-import { Nunito_900Black, Nunito_400Regular, Nunito_200ExtraLight } from "@expo-google-fonts/nunito";
-
-import Toast from "react-native-toast-message";
-import Loading from "../src/components/Loading";
 import AuthService from "../src/services/authService";
+import Loading from "../src/components/Loading";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 function AuthWrapper() {
     const router = useRouter();
 
+    const pathname = usePathname();
+    const searchParams = useGlobalSearchParams();
+    const token = searchParams.token;
+
     useEffect(() => {
+        if (pathname.includes("/customer/budget/show") && token) {
+            return;
+        }
+
         if (!AuthService.isAuthenticated()) {
             AuthService.clearAuth();
             router.replace("/");

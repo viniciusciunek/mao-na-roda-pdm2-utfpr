@@ -5,4 +5,5 @@ export type BudgetItem = {
     quantity: number;
     unit_price: number;
     total_price: number;
+    expand?: any;
 }

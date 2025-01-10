@@ -1,5 +1,6 @@
 export type Budget = {
     id?: string;
+    number: number;
     customer_id: string;
     status: string;
     is_cancelled: boolean;

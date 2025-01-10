@@ -3,8 +3,8 @@ export type Customer = {
     email: string;
     name: string;
     phone: string;
-    username: string;
-    verified: boolean;
+    username?: string;
+    verified?: boolean;
     cnpj?: string;
     cpf?: string;
 }

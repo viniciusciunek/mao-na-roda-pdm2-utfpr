@@ -1,8 +1,8 @@
+import { Button, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import CardOption from '../../src/components/CardOption';
+import React from 'react';
 import StatusBadge from '../../src/components/StatusBadge';
 import pb from '../../src/services/pocketbase';
 import useAuth from '../../src/store/useAuth';
@@ -31,6 +31,15 @@ export default function _screen() {
                 <ScrollView horizontal contentContainerStyle={{ paddingBottom: 20, gap: 12, marginHorizontal: 12 }} showsHorizontalScrollIndicator={false}
                     snapToInterval={200} decelerationRate={'fast'} >
                     <CardOption link='/admin/budget/create' title='Criar Orçamento' icon='plus' iconColor='black' iconSize={48} />
+
+                    <Button title='teste' onPress={() => router.push({
+                        pathname: '/admin/budget/show',
+                        params: {
+                            budget: 'k8jbbz44at9sacw',
+                            customer: 'e812h1g2s6w53ns',
+                            items: [],
+                        },
+                    })} />
                 </ScrollView>
             </View>
 

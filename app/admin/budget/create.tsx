@@ -121,6 +121,8 @@ export default function _screen() {
     }
 
     const saveBudget = async () => {
+        const budgetNumber = await (await budgetRepository.getAllBudgets()).length + 1;
+
         if (!customer || !budgetItems.length || total <= 0) {
             Toast.show({
                 type: 'error',
@@ -133,6 +135,7 @@ export default function _screen() {
 
         try {
             const newBudget = await budgetRepository.createBudget({
+                number: budgetNumber,
                 customer_id: customer.id,
                 status: 'pending_aprove',
                 is_cancelled: false,
@@ -167,16 +170,15 @@ export default function _screen() {
                 visibilityTime: 3000
             });
 
-            resetFields();
-
             router.push({
                 pathname: '/admin/budget/show',
                 params: {
-                    budget: newBudget.id,
-                    customer: customer.id,
-                    items: JSON.stringify(budgetItems),
+                    budgetId: newBudget.id,
+                    customerId: customer.id,
                 },
             });
+
+            resetFields();
         } catch (error) {
             console.error('Erro ao salvar orçamento:', error);
             Toast.show({
@@ -187,7 +189,6 @@ export default function _screen() {
             });
         }
     };
-
 
     useEffect(() => {
         resetFields();

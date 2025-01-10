@@ -7,6 +7,13 @@ export default class BudgetItemRepository implements IBudgetItemRepository {
         return await pb.collection('budgets_items').getFullList();
     }
 
+    async getAllBudgetItemsByBudgetId(budgetId: string): Promise<BudgetItem[]> {
+        return await pb.collection('budgets_items').getFullList({
+            filter: `budget_id = "${budgetId}"`,
+            expand: 'product_id'
+        });
+    }
+
     async getBudgetItemById(id: string): Promise<BudgetItem> {
         return await pb.collection('budgets_items').getOne(id);
     }

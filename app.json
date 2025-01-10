@@ -5,7 +5,8 @@
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
-        "scheme": "maonaroda",
+        "scheme": "mao-na-roda",
+        "platforms": ["ios", "android", "web"],
         "userInterfaceStyle": "light",
         "splash": {
             "image": "./assets/splash.png",
