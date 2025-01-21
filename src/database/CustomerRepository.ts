@@ -11,12 +11,12 @@ export default class CustomerRepository implements ICustomerRepository {
         return await pb.collection('customers').getOne(id);
     }
 
-    async createCustomer(product: Customer): Promise<Customer> {
-        return await pb.collection('customers').create(product);
+    async createCustomer(customer: Customer): Promise<Customer> {
+        return await pb.collection('customers').create(customer);
     }
 
-    async updateCustomer(id: string, product: Customer): Promise<Customer> {
-        return await pb.collection('customers').update(id, product);
+    async updateCustomer(id: string, customer: Customer): Promise<Customer> {
+        return await pb.collection('customers').update(id, customer);
     }
 
     async deleteCustomer(id: string): Promise<boolean> {

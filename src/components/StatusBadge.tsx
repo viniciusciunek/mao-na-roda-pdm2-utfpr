@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
+import { Text, View } from 'react-native'
+
 import React from 'react'
 
 interface StatusBadgeProps {
-    text: string;
-    label: string;
-    color: string
+    text: any;
+    label: any;
+    color: string;
     bgColor: string;
 }
 

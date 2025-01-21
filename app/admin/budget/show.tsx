@@ -32,8 +32,8 @@ export default function Show() {
         try {
             const token = await impersonateCustomer(customer?.id.toString()!);
 
-            const link = `http://192.168.2.209:8081/customer/budget/show?token=${token}&budgetId=${budgetId}`;
-            // const link = `http://192.168.1.110:8081/customer/budget/show?token=${token}&budgetId=${budget}`;
+            // const link = `http://192.168.2.209:8081/customer/budget/show?token=${token}&budgetId=${budgetId}`;
+            const link = `http://192.168.1.110:8081/customer/budget/show?token=${token}&budgetId=${budgetId}`;
 
             console.log(link)
 
