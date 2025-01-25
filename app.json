@@ -1,35 +1,67 @@
 {
-    "expo": {
-        "name": "mao-na-roda",
-        "slug": "mao-na-roda",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "scheme": "mao-na-roda",
-        "platforms": ["ios", "android", "web"],
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "package": "com.ciunek.maonaroda",
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
+  "expo": {
+    "name": "Mão na Roda",
+    "slug": "maonaroda",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "maonaroda",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ciunek.maonaroda",
+      "associatedDomains": [
+        "applinks:maonaroda.com"
+      ]
+    },
+    "android": {
+      "package": "com.ciunek.maonaroda",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "versionCode": 1,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "maonaroda",
+              "host": "*"
             }
-        },
-        "web": {
-            "favicon": "./assets/favicon.png",
-            "bundler": "metro"
-        },
-        "plugins": [
-            "expo-router",
-            "expo-font"
-        ]
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3f465f70-893a-4d24-a278-edd505394f87"
+      }
     }
+  }
 }

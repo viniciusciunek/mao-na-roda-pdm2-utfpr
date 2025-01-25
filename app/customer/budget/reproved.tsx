@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Text, View } from 'react-native'
 
+import BadgeX from '../../../src/components/BadgeX'
 import Toast from 'react-native-toast-message'
-import XBadge from '../../../src/components/XBadge'
 
-export default function reproved() {
+export default function Reproved() {
     useEffect(() => {
         Toast.show({
             type: 'error',
@@ -21,7 +21,7 @@ export default function reproved() {
                 <Text className='text-lg text-center text-gray-500'>Caso tenha alguma dúvida ou precise de mais informações, nossa equipe está à disposição para ajudar. Agradecemos pela oportunidade de atender você!</Text>
             </View>
 
-            <XBadge />
+            <BadgeX />
         </View>
     )
 }

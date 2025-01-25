@@ -7,5 +7,6 @@ export type Budget = {
     is_paid: boolean;
     total: number;
     due_date: Date;
-    obs: string
+    obs: string;
+    expand?: any;
 }

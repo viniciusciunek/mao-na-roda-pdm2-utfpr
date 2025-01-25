@@ -32,6 +32,8 @@ export default function TabLayout() {
             }}
         >
             <Tabs.Screen name="home" options={{ href: AuthService.isAuthenticated() ? '' : null, title: 'Home', tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} /> }} />
+            <Tabs.Screen name="budget/approved" options={{ href: null }} />
+            <Tabs.Screen name="budget/reproved" />
             <Tabs.Screen name="budget/show" options={{ href: null }} />
         </Tabs>
     );

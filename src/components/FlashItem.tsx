@@ -4,10 +4,10 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import React from 'react'
 
 interface FlashItemProps {
-    name: string;
-    description?: string;
-    brand?: string;
-    price?: number;
+    name: any;
+    description?: any;
+    brand?: any;
+    price?: any;
 
     onEdit?: () => void;
     onDelete?: () => void;
@@ -17,7 +17,7 @@ export default function FlashItem({ name, description, brand, price, onEdit, onD
     return (
         <View className='border border-[#0E3087] rounded bg-transparent m-2'>
             <View className='flex flex-row items-center justify-between p-2 border-b bg-blue-950'>
-                <Text className='font-bold text-white'>{name}  {brand && (
+                <Text className='font-bold text-white'>{name} {brand && (
                     `| ${brand}`
                 )}</Text>
 

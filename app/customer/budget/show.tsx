@@ -1,6 +1,6 @@
 import { ActivityIndicator, Alert, ScrollView, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, usePathname, useRouter } from "expo-router";
 
 import { Budget } from "../../../src/types/Budget";
 import { BudgetItem } from "../../../src/types/BudgetItem";
@@ -10,10 +10,12 @@ import CustomTextInput from '../../../src/components/CustomTextInput';
 import { Customer } from '../../../src/types/Customer';
 import CustomerRepository from "../../../src/database/CustomerRepository";
 import DangerButton from "../../../src/components/DangerButton";
+import Loading from "../../../src/components/Loading";
 import ProductRepository from "../../../src/database/ProductRepository";
 import SuccessButton from '../../../src/components/SuccessButton';
 import Toast from "react-native-toast-message";
 import WarningButton from '../../../src/components/WarningButton';
+import pb from "../../../src/services/pocketbase";
 
 const customerRepository = new CustomerRepository();
 const budgetRepository = new BudgetRepository();
@@ -35,10 +37,6 @@ export default function Show() {
 
     const fetchBudget = async () => {
         try {
-            if (!token || !budgetId) {
-                throw new Error("Token ou ID do orçamento não fornecido!");
-            }
-
             const budgetRecord = await budgetRepository.getBudgetById(budgetId.toString());
 
             const customerRecord = await customerRepository.getCustomerById(budgetRecord.customer_id);
@@ -90,13 +88,14 @@ export default function Show() {
     };
 
     useEffect(() => {
+        if (!token || !budgetId) {
+            throw new Error("Token ou ID do orçamento não fornecido!");
+        }
         fetchBudget();
     }, [token, budgetId]);
 
     if (loading) {
-        return <View className="items-center justify-center flex-1">
-            <ActivityIndicator size="large" color="#14285f" />
-        </View>;
+        return <Loading />;
     }
 
     if (error || !budget) {
@@ -113,7 +112,6 @@ export default function Show() {
             </View>
         );
     }
-
 
     const handleApprove = async () => {
         try {
@@ -137,7 +135,9 @@ export default function Show() {
 
             await fetchBudget();
 
-            return router.push('/customer/budget/reproved')
+            router.push({
+                pathname: 'customer/budget/reproved',
+            })
         } catch (error) {
             return Toast.show({
                 type: 'error',

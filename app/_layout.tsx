@@ -16,9 +16,10 @@ function AuthWrapper() {
     const pathname = usePathname();
     const searchParams = useGlobalSearchParams();
     const token = searchParams.token;
+    const budgetId = searchParams.budgetId;
 
     useEffect(() => {
-        if (pathname.includes("/customer/budget/show") && token) {
+        if (pathname.includes("/customer/budget/show") && token && budgetId) {
             return;
         }
 
@@ -46,6 +47,7 @@ function AuthWrapper() {
 
     return <Stack screenOptions={{ headerShown: false }} />;
 }
+
 
 export default function Layout() {
     let [fontsLoaded] = useFonts({

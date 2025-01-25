@@ -1,15 +1,15 @@
-import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import PlusButton from '../../../src/components/PlusButton'
-import { useRouter } from 'expo-router'
-
-import { Product } from '../../../src/types/Product'
-import { FlashList } from '@shopify/flash-list'
-import FlashItem from '../../../src/components/FlashItem'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
-import Toast from 'react-native-toast-message'
+import { Text, TouchableOpacity, View } from 'react-native'
+
+import FlashItem from '../../../src/components/FlashItem'
+import { FlashList } from '@shopify/flash-list'
 import Loading from '../../../src/components/Loading'
+import PlusButton from '../../../src/components/PlusButton'
+import { Product } from '../../../src/types/Product'
 import ProductRepository from '../../../src/database/ProductRepository'
+import Toast from 'react-native-toast-message'
+import { useRouter } from 'expo-router'
 
 const productRepository = new ProductRepository();
 
@@ -26,8 +26,6 @@ export default function _screen() {
 
             setProducts(data);
         } catch (error) {
-            console.log(error);
-
             setTimeout(async () => {
                 Toast.show({
                     type: 'error',

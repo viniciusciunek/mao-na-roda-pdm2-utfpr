@@ -69,8 +69,6 @@ export default function _screen() {
 
             return result;
         } catch (error) {
-            console.log(error)
-
             Toast.show({
                 type: 'error',
                 text1: 'Erro',
@@ -136,7 +134,7 @@ export default function _screen() {
         try {
             const newBudget = await budgetRepository.createBudget({
                 number: budgetNumber,
-                customer_id: customer.id,
+                customer_id: customer.id!,
                 status: 'pending_aprove',
                 is_cancelled: false,
                 is_paid: false,
@@ -159,7 +157,12 @@ export default function _screen() {
                         total_price: item.price,
                     });
                 } catch (error) {
-                    console.error('Erro ao criar item do orçamento:', error);
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Erro',
+                        text2: 'Erro ao salvar o orçamento. Tente novamente.',
+                        visibilityTime: 3000
+                    });
                 }
             }
 
@@ -180,7 +183,6 @@ export default function _screen() {
 
             resetFields();
         } catch (error) {
-            console.error('Erro ao salvar orçamento:', error);
             Toast.show({
                 type: 'error',
                 text1: 'Erro',

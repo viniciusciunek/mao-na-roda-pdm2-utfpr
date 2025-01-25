@@ -1,4 +1,4 @@
-import { Button, ScrollView, Share, Text, View } from 'react-native';
+import { Alert, Button, ScrollView, Share, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
 import { Budget } from '../../../src/types/Budget';
@@ -10,6 +10,7 @@ import { Customer } from '../../../src/types/Customer';
 import CustomerRepository from '../../../src/database/CustomerRepository';
 import SuccessButton from '../../../src/components/SuccessButton';
 import { impersonateCustomer } from '../../../src/services/pocketbase';
+import pb from '../../../src/services/pocketbase';
 import { useLocalSearchParams } from 'expo-router';
 
 const customerRepository = new CustomerRepository();
@@ -26,16 +27,27 @@ export default function Show() {
     const [customer, setCustomer] = useState<Customer | null>(null);
     const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([]);
 
+    const [badgeStatusColor, setBadgeStatusColor] = useState('bg-blue-300');
+    const [textStatusColor, setTextStatusColor] = useState('text-blue-500');
+
     const handleShare = async () => {
         setLoading(true);
 
         try {
-            const token = await impersonateCustomer(customer?.id.toString()!);
+            if (!customer || !customer.id) {
+                throw new Error("Cliente não encontrado!");
+            }
+            const token = await impersonateCustomer(customer.id.toString());
 
             // const link = `http://192.168.2.209:8081/customer/budget/show?token=${token}&budgetId=${budgetId}`;
-            const link = `http://192.168.1.110:8081/customer/budget/show?token=${token}&budgetId=${budgetId}`;
+            // const link = `http://192.168.1.110:8081/customer/budget/show?token=${token}&budgetId=${budgetId}`;
+
+            const link = `maonaroda://customer/budget/show?token=${token}&budgetId=${budgetId}`;
+
+            const exp = `exp://192.168.1.110:8081/--/customer/budget/show?token=${token}&budgetId=${budgetId}`;
 
             console.log(link)
+            console.log(exp)
 
             await Share.share({
                 message: `Confira o orçamento do cliente ${customer?.name}: ${link}`,
@@ -58,6 +70,17 @@ export default function Show() {
 
                 if (!customerRecord || !budgetRecord || !budgetItemRecords) {
                     throw new Error("Dados não encontrados!");
+                }
+
+                if (budgetRecord.status === 'reproved' || budgetRecord.status === 'cancelled') {
+                    setBadgeStatusColor('bg-red-300');
+                    setTextStatusColor('text-red-500')
+                } else if (budgetRecord.status === 'approved') {
+                    setBadgeStatusColor('bg-green-500');
+                    setTextStatusColor('text-white')
+                } else {
+                    setBadgeStatusColor('bg-blue-300');
+                    setTextStatusColor('text-blue-500')
                 }
 
                 setCustomer({
@@ -83,6 +106,7 @@ export default function Show() {
                 setBudgetItems(budgetItemRecords);
             } catch (err: any) {
                 setError(true);
+                Alert.alert("Erro", err.message || "Erro ao visualizar o orçamento.");
             } finally {
                 setLoading(false);
             }
@@ -100,8 +124,8 @@ export default function Show() {
                 </View>
 
                 <View className='flex flex-row items-center justify-center w-full'>
-                    <View className='w-3/4 p-2 text-center bg-blue-300 rounded-md shadow'>
-                        <Text className='text-center text-blue-500'>
+                    <View className={`w-3/4 p-2 text-center ${badgeStatusColor} rounded-md shadow`}>
+                        <Text className={`text-center ${textStatusColor} font-bold`}>
                             {(() => {
                                 switch (budget?.status) {
                                     case 'pending_aprove':
@@ -110,6 +134,8 @@ export default function Show() {
                                         return 'APROVADO';
                                     case 'cancelled':
                                         return 'CANCELADO';
+                                    case 'reproved':
+                                        return 'REPROVADO';
                                     case 'finished':
                                         return 'PAGO & FINALIZADO';
                                     default:

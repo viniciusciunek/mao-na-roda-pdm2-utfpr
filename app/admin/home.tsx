@@ -1,73 +1,41 @@
-import { Button, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Stack, useRouter } from 'expo-router';
+import { ScrollView, Text, View } from 'react-native';
 
 import BudgetRepository from '../../src/database/BudgetRepository';
 import CardOption from '../../src/components/CardOption';
 import StatusBadge from '../../src/components/StatusBadge';
-import pb from '../../src/services/pocketbase';
-import useAuth from '../../src/store/useAuth';
+import Toast from 'react-native-toast-message';
 
 const budgetRepository = new BudgetRepository();
 
 export default function _screen() {
-    const { logout } = useAuth();
-    const router = useRouter();
-
     const [pendingCount, setPendingCount] = useState(0);
     const [approvedCount, setApprovedCount] = useState(0);
     const [reprovedCount, setReprovedCount] = useState(0);
 
-    const fetchPendingCount = async () => {
+    const fetchCount = async (status: string, setter: Function) => {
         try {
-            const data = await budgetRepository.fetchBudgets({
-                filter: "status='pending_aprove'",
-            });
-
-            setPendingCount(data.totalItems!);
+            const count = await budgetRepository.getCountByStatus(status);
+            setter(count);
         } catch (error) {
-            setPendingCount(0);
+            setTimeout(async () => {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Erro',
+                    text2: 'Erro ao carregar orçamentos.',
+                    visibilityTime: 3000
+                });
+            }, 100);
         }
-
-    }
-
-    const fetchApprovedCount = async () => {
-        try {
-            const data = await budgetRepository.fetchBudgets({
-                filter: "status='approved'",
-            });
-
-            setApprovedCount(data.totalItems!);
-        } catch (error) {
-            setPendingCount(0);
-        }
-
-    }
-
-    const fetchReprovedCount = async () => {
-        try {
-            const data = await budgetRepository.fetchBudgets({
-                filter: "status='reproved'",
-            });
-
-            setReprovedCount(data.totalItems!);
-        } catch (error) {
-            setPendingCount(0);
-        }
-
-    }
+    };
 
     useEffect(() => {
-        fetchPendingCount();
-        fetchApprovedCount();
-        fetchReprovedCount();
+        fetchCount('pending_aprove', setPendingCount);
+        fetchCount('approved', setApprovedCount);
+        fetchCount('reproved', setReprovedCount);
     }, []);
 
-    const handleLogout = () => {
-        pb.authStore.clear();
-        logout();
-        router.push("/");
-    };
+
 
     return (
         <ScrollView>
@@ -82,6 +50,7 @@ export default function _screen() {
                 <ScrollView horizontal contentContainerStyle={{ paddingBottom: 20, gap: 12, marginHorizontal: 12 }} showsHorizontalScrollIndicator={false}
                     snapToInterval={200} decelerationRate={'fast'} >
                     <CardOption link='/admin/budget/create' title='Criar Orçamento' icon='plus' iconColor='black' iconSize={48} />
+                    <CardOption link='/admin/budget/budgets' title='Orçamentos Criados' icon='layer-group' iconColor='black' iconSize={48} />
                 </ScrollView>
             </View>
 
@@ -92,12 +61,6 @@ export default function _screen() {
                     <CardOption link='/admin/product/products' title='Produtos' icon='product-hunt' iconColor='black' iconSize={48} />
                     <CardOption link='/admin/customer/customers' title='Clientes' icon='people-group' iconColor='black' iconSize={48} />
                 </ScrollView>
-            </View>
-
-            <View className='self-center'>
-                <TouchableOpacity onPress={handleLogout} className='flex items-center justify-center w-48 p-4 shadow hover:bg-darkBlue bg-primaryBlue rounded-xl'>
-                    <Text className='font-bold text-white'>LOGOUT</Text>
-                </TouchableOpacity>
             </View>
         </ScrollView>
     );
