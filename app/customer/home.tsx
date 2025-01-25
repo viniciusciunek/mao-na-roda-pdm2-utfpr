@@ -22,8 +22,14 @@ export default function CustomerScreen() {
     };
 
     return (
-        <View className='flex items-center justify-center'>
-            <Text className='text-4xl text-center font-poppins_bold text-primaryBlue p-44'>index cliente</Text>
+        <View className='flex flex-col items-center h-full justify-evenly'>
+            <View className='flex items-center justify-center'>
+                <Text className='text-4xl text-center font-poppins_bold text-primaryBlue'>Bem vindo Cliente!</Text>
+            </View>
+
+            <View>
+                <Text>Em breve, terá o acompanhamento do seu conserto em tempo real!</Text>
+            </View>
         </View>
     );
 }

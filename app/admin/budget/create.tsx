@@ -69,6 +69,8 @@ export default function _screen() {
 
             return result;
         } catch (error) {
+            console.log(error)
+
             Toast.show({
                 type: 'error',
                 text1: 'Erro',
