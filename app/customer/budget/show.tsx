@@ -81,7 +81,6 @@ export default function Show() {
             setBudgetItems(budgetItemRecords);
         } catch (err: any) {
             setError(true);
-            Alert.alert("Erro", err.message || "Erro ao autenticar o orçamento.");
         } finally {
             setLoading(false);
         }
@@ -89,7 +88,7 @@ export default function Show() {
 
     useEffect(() => {
         if (!token || !budgetId) {
-            throw new Error("Token ou ID do orçamento não fornecido!");
+            setError(true);
         }
         fetchBudget();
     }, [token, budgetId]);

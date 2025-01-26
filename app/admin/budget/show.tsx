@@ -50,7 +50,8 @@ export default function Show() {
             console.log(exp)
 
             await Share.share({
-                message: `Confira o orçamento do cliente ${customer?.name}: ${link}`,
+                message: `Confira o orçamento no app:\n\n${link}`,
+                title: 'Orçamento de Cliente',
             });
         } catch (error) {
             alert("Erro ao compartilhar orçamento. Tente novamente.");
