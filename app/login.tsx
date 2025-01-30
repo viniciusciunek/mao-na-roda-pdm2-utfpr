@@ -1,16 +1,20 @@
-import { View, Text } from 'react-native';
-import React, { useState } from 'react';
 import { Link, Stack, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
+
 import AuthService from '../src/services/authService';
 import LoginButton from '../src/components/LoginButton';
-import TextInput from '../src/components/CustomTextInput';
 import Mechanic from '../src/components/Mechanic';
+import TextInput from '../src/components/CustomTextInput';
 import Toast from 'react-native-toast-message';
 
 export default function LoginScreen() {
     const router = useRouter();
     const [email, setEmail] = useState('dev@dev.com');
     const [password, setPassword] = useState('developing@123');
+
+    // const [email, setEmail] = useState('vini@vini.com');
+    // const [password, setPassword] = useState('123456789');
 
     const handleLogin = async () => {
         try {

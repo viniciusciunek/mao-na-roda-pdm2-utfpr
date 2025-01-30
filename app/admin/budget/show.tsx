@@ -50,7 +50,7 @@ export default function Show() {
             console.log(exp)
 
             await Share.share({
-                message: `Confira o orçamento no app:\n\n${link}`,
+                message: `Olá! Segue o seu orçamento.\n\nAbra aqui: maonaroda://customer/budget/show?token=${token}&budgetId=${budgetId}`,
                 title: 'Orçamento de Cliente',
             });
         } catch (error) {

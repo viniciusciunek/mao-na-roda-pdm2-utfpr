@@ -1,5 +1,5 @@
+import { FlatList, ScrollView, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
 
 import BudgetRepository from '../../src/database/BudgetRepository';
 import CardOption from '../../src/components/CardOption';
@@ -45,22 +45,26 @@ export default function _screen() {
                 <StatusBadge label='Reprovadas' text={reprovedCount} color='red' bgColor='red' />
             </View>
 
-            <View>
-                <Text className='mb-2 text-lg text-center text-gray-500 underline font-nunito_xligth'>Serviços</Text>
-                <ScrollView horizontal contentContainerStyle={{ paddingBottom: 20, gap: 12, marginHorizontal: 12 }} showsHorizontalScrollIndicator={false}
-                    snapToInterval={200} decelerationRate={'fast'} >
-                    <CardOption link='/admin/budget/create' title='Criar Orçamento' icon='plus' iconColor='black' iconSize={48} />
-                    <CardOption link='/admin/budget/budgets' title='Orçamentos Criados' icon='layer-group' iconColor='black' iconSize={48} />
-                </ScrollView>
-            </View>
+            <View className="flex flex-col mt-4">
+                <View>
+                    <Text className='text-center text-gray-700 underline font-poppins_bold'>Orçamentos</Text>
 
-            <View>
-                <Text className='mb-2 text-lg text-center text-gray-500 underline font-nunito_xligth'>Gerenciar Cadastros</Text>
-                <ScrollView horizontal contentContainerStyle={{ paddingBottom: 20, gap: 12, marginHorizontal: 12 }} showsHorizontalScrollIndicator={false}
-                    snapToInterval={200} decelerationRate={'fast'} >
-                    <CardOption link='/admin/product/products' title='Produtos' icon='product-hunt' iconColor='black' iconSize={48} />
-                    <CardOption link='/admin/customer/customers' title='Clientes' icon='people-group' iconColor='black' iconSize={48} />
-                </ScrollView>
+                    <View className='flex flex-row items-center justify-around'>
+                        <CardOption link="/admin/budget/create" title="Novo" icon="plus" iconColor="white" iconSize={36} />
+                        <CardOption link="/admin/budget/budgets" title="Orçamentos" icon="layer-group" iconColor="white" iconSize={36} />
+                    </View>
+                </View>
+
+                <View className='self-center w-3/4 my-4 border-b border-gray-300'></View>
+
+                <View>
+                    <Text className='text-center text-gray-700 underline font-poppins_bold'>Cadastros</Text>
+
+                    <View className='flex flex-row items-center justify-around'>
+                        <CardOption link="/admin/product/products" title="Produtos" icon="product-hunt" iconColor="white" iconSize={36} />
+                        <CardOption link="/admin/customer/customers" title="Clientes" icon="people-group" iconColor="white" iconSize={36} />
+                    </View>
+                </View>
             </View>
         </ScrollView>
     );

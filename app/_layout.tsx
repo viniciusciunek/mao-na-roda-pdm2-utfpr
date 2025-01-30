@@ -9,6 +9,7 @@ import AuthService from "../src/services/authService";
 import Loading from "../src/components/Loading";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
+import pb from "../src/services/pocketbase";
 
 function AuthWrapper() {
     const router = useRouter();
@@ -20,6 +21,8 @@ function AuthWrapper() {
 
     useEffect(() => {
         if (pathname.includes("/customer/budget/show") && token && budgetId) {
+            console.log('É cliente!')
+
             return;
         }
 

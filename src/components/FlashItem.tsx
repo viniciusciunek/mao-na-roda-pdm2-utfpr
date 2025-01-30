@@ -15,8 +15,8 @@ interface FlashItemProps {
 
 export default function FlashItem({ name, description, brand, price, onEdit, onDelete }: FlashItemProps) {
     return (
-        <View className='border border-[#0E3087] rounded bg-transparent m-2'>
-            <View className='flex flex-row items-center justify-between p-2 border-b bg-blue-950'>
+        <View className='m-2 bg-transparent border rounded-lg border-primaryBlue'>
+            <View className='flex flex-row items-center justify-between p-2 border-b rounded-t-md bg-primaryBlue'>
                 <Text className='font-bold text-white'>{name} {brand && (
                     `| ${brand}`
                 )}</Text>
@@ -37,7 +37,7 @@ export default function FlashItem({ name, description, brand, price, onEdit, onD
             </View>
 
             {price && (
-                <View className='flex flex-row items-center justify-end p-2 text-end bg-blue-950'>
+                <View className='flex flex-row items-center justify-end p-2 text-end bg-primaryBlue rounded-b-md'>
                     <Text className='font-bold text-white uppercase'>Valor: R$ {price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</Text>
                 </View>
             )}

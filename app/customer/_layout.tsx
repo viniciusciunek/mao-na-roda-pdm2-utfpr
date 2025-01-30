@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-
 import AuthService from '../../src/services/authService';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import React from 'react';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
@@ -31,7 +30,7 @@ export default function TabLayout() {
                 },
             }}
         >
-            <Tabs.Screen name="home" options={{ href: AuthService.isAuthenticated() ? '' : null, title: 'Home', tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} /> }} />
+            <Tabs.Screen name="home" options={{ href: AuthService.isAuthenticated() ? 'customer/home' : null, title: 'Home', tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} /> }} />
 
             <Tabs.Screen name="budget/approved" options={{ href: null }} />
 

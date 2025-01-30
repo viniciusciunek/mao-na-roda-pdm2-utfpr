@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, Text, Touchable, TouchableOpacity, View } from 'react-native'
 
 import BudgetItemRepository from '../../../src/database/BudgetItemRepository';
@@ -109,9 +110,9 @@ export default function _screen() {
 
         setTotal(total + (quantity * price));
 
-        setProduct(null);
-        setQuantity(0);
-        setPrice(0);
+        // setProduct(null);
+        // setQuantity(0);
+        // setPrice(0);
     }
 
     const cancelBudget = () => {
@@ -219,7 +220,7 @@ export default function _screen() {
     }))
 
     return (
-        <ScrollView className='w-full gap-2 p-4'>
+        <ScrollView className="flex-1 w-full p-4">
             <View>
                 <CustomPicker
                     label="Selecione um cliente:"
@@ -299,7 +300,7 @@ export default function _screen() {
                     />
                 </View>
 
-                <View className='flex flex-row w-full gap-2 mt-2'>
+                <View className='flex flex-row w-full gap-2 mt-2 mb-6'>
                     <View className="flex-1">
                         <DangerButton label='cancelar' onPress={cancelBudget} />
                     </View>

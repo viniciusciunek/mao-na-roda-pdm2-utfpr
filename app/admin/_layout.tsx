@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 
+import AuthService from '../../src/services/authService';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import useAuth from '../../src/store/useAuth';
 
 export default function TabLayout() {
-    const { user, role } = useAuth();
-
-    useEffect(() => {
-    }, [])
-
     return (
         <Tabs
             screenOptions={{
@@ -43,19 +39,20 @@ export default function TabLayout() {
 
             <Tabs.Screen name="budget/budgets" options={{ href: null, headerTitle: 'Orçamentos' }} />
 
-            <Tabs.Screen name="product/products" options={{ href: null, headerTitle: 'Lista dos Produtos', tabBarStyle: { display: 'none' } }} />
+            <Tabs.Screen name="product/products" options={{ href: null, headerTitle: 'Lista dos Produtos' }} />
 
             <Tabs.Screen name="product/create" options={{ href: null, headerTitle: 'Criar Produto', tabBarStyle: { display: 'none' } }} />
 
             <Tabs.Screen name="product/view" initialParams={{ id: '' }} options={{ href: null, headerTitle: 'Editando Produto', tabBarStyle: { display: 'none' } }} />
 
-            <Tabs.Screen name="customer/view" options={{ href: null }} />
+            <Tabs.Screen name="customer/view" options={{ href: null, }} />
 
-            <Tabs.Screen name="customer/customers" options={{ href: null }} />
+            <Tabs.Screen name="customer/customers" options={{ href: null, }} />
 
-            <Tabs.Screen name="customer/create" options={{ href: null }} />
+            <Tabs.Screen name="customer/create" options={{ href: null, }} />
 
             <Tabs.Screen name="profile/home" options={{ title: 'Perfil', tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} /> }} />
         </Tabs>
+
     );
 }
