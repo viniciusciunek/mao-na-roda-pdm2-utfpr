@@ -10,8 +10,8 @@ import Toast from 'react-native-toast-message';
 
 export default function LoginScreen() {
     const router = useRouter();
-    const [email, setEmail] = useState('dev@dev.com');
-    const [password, setPassword] = useState('developing@123');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     // const [email, setEmail] = useState('vini@vini.com');
     // const [password, setPassword] = useState('123456789');

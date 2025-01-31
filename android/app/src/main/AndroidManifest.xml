@@ -29,14 +29,7 @@
       </intent-filter>
       <intent-filter data-generated="true">
         <action android:name="android.intent.action.VIEW"/>
-        <data android:scheme="https" android:host="maonarodapdm.netlify.app" android:pathPrefix="/"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-      <intent-filter data-generated="true">
-        <action android:name="android.intent.action.SEND"/>
-        <data android:scheme="http" android:host="*"/>
-        <data android:scheme="https" android:host="*"/>
+        <data android:scheme="https" android:host="maonaroda.store" android:pathPrefix="/"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>

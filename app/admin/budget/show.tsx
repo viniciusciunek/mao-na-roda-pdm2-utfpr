@@ -39,7 +39,7 @@ export default function Show() {
             }
             const token = await impersonateCustomer(customer.id.toString());
 
-            const link = `https://maonaroda.store?token=${token}&budgetId=${budgetId}`;
+            const link = `https://maonaroda.store/customer/budget/show?token=${token}&budgetId=${budgetId}`;
 
             const exp = `exp://192.168.1.110:8081/--/customer/budget/show?token=${token}&budgetId=${budgetId}`;
 
@@ -47,7 +47,7 @@ export default function Show() {
             console.log(exp)
 
             await Share.share({
-                message: `Olá! Segue o seu orçamento.\n\nAcesse em: https://maonaroda.store?token=${token}&budgetId=${budgetId}`,
+                message: `Olá! Segue o seu orçamento.\n\nAcesse em: ${link}`,
                 title: "Orçamento de Cliente",
                 url: link,
             });

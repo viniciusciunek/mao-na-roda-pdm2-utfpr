@@ -45,24 +45,6 @@
                         "BROWSABLE",
                         "DEFAULT"
                     ]
-                },
-                {
-                    "action": "SEND",
-                    "category": [
-                        "BROWSABLE",
-                        "DEFAULT"
-                    ],
-                    "data": [
-                        {
-                            "scheme": "http",
-                            "host": "*"
-                        },
-                        {
-                            "scheme": "https",
-                            "host": "*"
-                        }
-                    ],
-                    "mimeType": "text/plain"
                 }
             ]
         },

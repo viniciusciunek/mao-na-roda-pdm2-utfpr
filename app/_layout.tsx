@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { Stack, useGlobalSearchParams, useLocalSearchParams, usePathname, useRouter } from 'expo-router';
 
 import AuthService from "../src/services/authService";
+import { Customer } from '../src/types/Customer';
 import Loading from "../src/components/Loading";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
@@ -20,8 +21,13 @@ function AuthWrapper() {
     const budgetId = searchParams.budgetId;
 
     useEffect(() => {
-        if (pathname.includes("/customer/budget/show") && token && budgetId) {
-            console.log('É cliente!')
+        // if (pathname.includes("/customer/budget/show") && token && budgetId) {
+        if (token && budgetId) {
+            pb.authStore.clear();
+
+            pb.authStore.save(token.toString(), {
+                role: "customer",
+            })
 
             return;
         }
