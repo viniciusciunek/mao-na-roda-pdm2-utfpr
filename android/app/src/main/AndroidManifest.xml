@@ -29,7 +29,7 @@
       </intent-filter>
       <intent-filter data-generated="true">
         <action android:name="android.intent.action.VIEW"/>
-        <data android:scheme="maonaroda" android:host="*" android:pathPrefix="/"/>
+        <data android:scheme="https" android:host="maonarodapdm.netlify.app" android:pathPrefix="/"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>

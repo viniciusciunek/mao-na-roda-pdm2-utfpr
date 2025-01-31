@@ -39,10 +39,7 @@ export default function Show() {
             }
             const token = await impersonateCustomer(customer.id.toString());
 
-            // const link = `http://192.168.2.209:8081/customer/budget/show?token=${token}&budgetId=${budgetId}`;
-            // const link = `http://192.168.1.110:8081/customer/budget/show?token=${token}&budgetId=${budgetId}`;
-
-            const link = `maonaroda://customer/budget/show?token=${token}&budgetId=${budgetId}`;
+            const link = `https://maonaroda.store?token=${token}&budgetId=${budgetId}`;
 
             const exp = `exp://192.168.1.110:8081/--/customer/budget/show?token=${token}&budgetId=${budgetId}`;
 
@@ -50,8 +47,9 @@ export default function Show() {
             console.log(exp)
 
             await Share.share({
-                message: `Olá! Segue o seu orçamento.\n\nAbra aqui: maonaroda://customer/budget/show?token=${token}&budgetId=${budgetId}`,
-                title: 'Orçamento de Cliente',
+                message: `Olá! Segue o seu orçamento.\n\nAcesse em: https://maonaroda.store?token=${token}&budgetId=${budgetId}`,
+                title: "Orçamento de Cliente",
+                url: link,
             });
         } catch (error) {
             alert("Erro ao compartilhar orçamento. Tente novamente.");

@@ -21,7 +21,7 @@
             "supportsTablet": true,
             "bundleIdentifier": "com.ciunek.maonaroda",
             "associatedDomains": [
-                "applinks:maonaroda.com"
+                "applinks:maonaroda.store"
             ]
         },
         "android": {
@@ -36,8 +36,8 @@
                     "action": "VIEW",
                     "data": [
                         {
-                            "scheme": "maonaroda",
-                            "host": "*",
+                            "scheme": "https",
+                            "host": "maonaroda.store",
                             "pathPrefix": "/"
                         }
                     ],
