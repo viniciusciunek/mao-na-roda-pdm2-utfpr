@@ -16,7 +16,8 @@ export default function home() {
     };
 
     useEffect(() => {
-    }, [])
+        if (!user) return router.replace('/')
+    }, [user])
 
     return (
         <View className='flex flex-col items-center justify-between h-full'>
@@ -25,7 +26,7 @@ export default function home() {
                     <FontAwesome size={48} name="user" color={'white'} />
                 </View>
 
-                <Text className='font-poppins_bold'>{user?.record.username || 'Usuário'}</Text>
+                <Text className='font-poppins_bold'>{user?.username || 'Usuário'}</Text>
             </View>
 
             {/* ------------------- */}

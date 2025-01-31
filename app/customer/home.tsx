@@ -1,12 +1,12 @@
 import { Link, Tabs, usePathname, useRouter } from 'expo-router';
+import React, { useEffect } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import AuthService from '../../src/services/authService';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import React, { useEffect } from 'react';
 import pb from '../../src/services/pocketbase';
 import useAuth from '../../src/store/useAuth';
-import AuthService from '../../src/services/authService';
 
 /**
  * Tela principal do cliente.

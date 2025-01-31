@@ -1,18 +1,15 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+
 type UseAuthState = {
-    loading: boolean;
     role: string | null;
-    user: object | null;
 }
 
 type UseAuthActions = {
-    setUser: (user: object) => void;
     setRole: (role: string) => void;
     logout: () => void;
-    setLoading: (loading: boolean) => void;
 }
 
 type UseAuth = UseAuthState & UseAuthActions;
@@ -20,15 +17,9 @@ type UseAuth = UseAuthState & UseAuthActions;
 const useAuth = create<UseAuth>()(
     persist(
         (set) => ({
-            user: null,
             role: null,
-            loading: false,
-
-            setUser: (user) => set({ user }),
             setRole: (role) => set({ role }),
-            setLoading: (loading) => set({ loading }),
-
-            logout: () => set({ role: null, user: null }),
+            logout: () => set({ role: null }),
         }),
         {
             name: "user-role-key-in-asyncstorage",

@@ -6,13 +6,14 @@ import React, { useEffect } from "react";
 import { Stack, useGlobalSearchParams, useLocalSearchParams, usePathname, useRouter } from 'expo-router';
 
 import AuthService from "../src/services/authService";
-import { Customer } from '../src/types/Customer';
 import Loading from "../src/components/Loading";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import pb from "../src/services/pocketbase";
+import useAuth from "../src/store/useAuth";
 
 function AuthWrapper() {
+    const { setRole } = useAuth();
     const router = useRouter();
 
     const pathname = usePathname();
@@ -21,13 +22,15 @@ function AuthWrapper() {
     const budgetId = searchParams.budgetId;
 
     useEffect(() => {
-        // if (pathname.includes("/customer/budget/show") && token && budgetId) {
-        if (token && budgetId) {
+        if (pathname.includes("/customer/budget/show") && token && budgetId) {
+            // if (token && budgetId) {
             pb.authStore.clear();
 
             pb.authStore.save(token.toString(), {
                 role: "customer",
             })
+
+            setRole("customer");
 
             return;
         }

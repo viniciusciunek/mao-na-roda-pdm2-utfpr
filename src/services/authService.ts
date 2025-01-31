@@ -16,7 +16,6 @@ const AuthService = {
     loginWithRole: async (collection: string, email: string, password: string, role: string) => {
         const user = await pb.collection(collection).authWithPassword(email, password);
 
-        useAuth.getState().setUser(user);
         useAuth.getState().setRole(role);
 
         pb.authStore.save(user.token, user);

@@ -16,10 +16,6 @@ export default function home() {
         router.replace("/");
     };
 
-    useEffect(() => {
-        console.log(user)
-    }, [])
-
     return (
         <View className='flex flex-col items-center justify-between h-full'>
             <View className='flex flex-col items-center self-center justify-center w-2/5 gap-2 mt-8 bg-gray-300 rounded-md'>

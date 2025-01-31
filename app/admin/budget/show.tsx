@@ -8,6 +8,7 @@ import BudgetRepository from '../../../src/database/BudgetRepository';
 import CustomTextInput from '../../../src/components/CustomTextInput';
 import { Customer } from '../../../src/types/Customer';
 import CustomerRepository from '../../../src/database/CustomerRepository';
+import Loading from '../../../src/components/Loading';
 import SuccessButton from '../../../src/components/SuccessButton';
 import { impersonateCustomer } from '../../../src/services/pocketbase';
 import pb from '../../../src/services/pocketbase';
@@ -61,6 +62,8 @@ export default function Show() {
     useEffect(() => {
         const fetchBudget = async () => {
             try {
+                setLoading(true);
+
                 const budgetRecord = await budgetRepository.getBudgetById(budgetId.toString());
 
                 const customerRecord = await customerRepository.getCustomerById(customerId.toString());
@@ -113,6 +116,14 @@ export default function Show() {
 
         fetchBudget();
     }, [budgetId, customerId])
+
+    if (loading) return <Loading />
+
+    if (error) return (
+        <View className='flex flex-col items-center justify-center h-full'>
+            <Text className='font-bold text-gray-800 uppercase'>Erro ao carregar orçamento.</Text>
+        </View>
+    )
 
     return (
         <ScrollView className='m-2' showsVerticalScrollIndicator={false}>
