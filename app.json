@@ -1,26 +1,52 @@
 {
     "expo": {
-        "name": "mao-na-roda",
-        "slug": "mao-na-roda",
+        "name": "Mão na Roda",
+        "slug": "maonaroda",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "scheme": "maonaroda",
+        "platforms": [
+            "ios",
+            "android",
+            "web"
+        ],
         "userInterfaceStyle": "light",
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
+            "backgroundColor": "#240089"
         },
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.ciunek.maonaroda",
+            "associatedDomains": [
+                "applinks:maonaroda.store"
+            ]
         },
         "android": {
             "package": "com.ciunek.maonaroda",
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
-            }
+            },
+            "versionCode": 1,
+            "intentFilters": [
+                {
+                    "action": "VIEW",
+                    "data": [
+                        {
+                            "scheme": "https",
+                            "host": "maonaroda.store",
+                            "pathPrefix": "/"
+                        }
+                    ],
+                    "category": [
+                        "BROWSABLE",
+                        "DEFAULT"
+                    ]
+                }
+            ]
         },
         "web": {
             "favicon": "./assets/favicon.png",
@@ -29,6 +55,14 @@
         "plugins": [
             "expo-router",
             "expo-font"
-        ]
+        ],
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "3f465f70-893a-4d24-a278-edd505394f87"
+            }
+        }
     }
 }

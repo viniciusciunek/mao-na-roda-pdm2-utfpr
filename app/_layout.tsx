@@ -1,48 +1,65 @@
 import "../global.css";
 
+import { Nunito_200ExtraLight, Nunito_400Regular, Nunito_900Black } from "@expo-google-fonts/nunito";
+import { Poppins_400Regular, Poppins_700Bold, Poppins_900Black, useFonts } from "@expo-google-fonts/poppins";
 import React, { useEffect } from "react";
-import { Stack, useRouter, usePathname } from 'expo-router';
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import pb from "../src/services/pocketbase";
+import { Stack, useGlobalSearchParams, useLocalSearchParams, usePathname, useRouter } from 'expo-router';
 
-
-import { useFonts, Poppins_700Bold, Poppins_900Black, Poppins_400Regular } from "@expo-google-fonts/poppins";
-import { Nunito_900Black, Nunito_400Regular, Nunito_200ExtraLight } from "@expo-google-fonts/nunito";
-
-import useAuth from "../src/store/useAuth";
+import AuthService from "../src/services/authService";
 import Loading from "../src/components/Loading";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
+import pb from "../src/services/pocketbase";
+import useAuth from "../src/store/useAuth";
 
 function AuthWrapper() {
-    const { role, loading } = useAuth();
+    const { setRole } = useAuth();
     const router = useRouter();
 
+    const pathname = usePathname();
+    const searchParams = useGlobalSearchParams();
+    const token = searchParams.token;
+    const budgetId = searchParams.budgetId;
+
     useEffect(() => {
-        if (!loading) {
-            if (role && pb.authStore.isValid) {
-                switch (role) {
-                    case "admin":
-                        router.replace("/admin/home");
-                        break;
+        if (pathname.includes("/customer/budget/show") && token && budgetId) {
+            // if (token && budgetId) {
+            pb.authStore.clear();
 
-                    case "customer":
-                        router.replace("/customer/home");
-                        break;
+            pb.authStore.save(token.toString(), {
+                role: "customer",
+            })
 
-                    default:
-                        router.replace("/customer/home");
-                        break;
-                }
-            } else {
-                router.replace("/");
+            setRole("customer");
+
+            return;
+        }
+
+        if (!AuthService.isAuthenticated()) {
+            AuthService.clearAuth();
+            router.replace("/");
+        } else {
+            const role = AuthService.getRole();
+
+            switch (role) {
+                case "admin":
+                    router.replace("/admin/home");
+                    break;
+
+                case "customer":
+                    router.replace("/customer/home");
+                    break;
+
+                default:
+                    router.replace("/customer/home");
+                    break;
             }
         }
-    }, [loading, role]);
-
-    if (loading) return <Loading />;
+    }, []);
 
     return <Stack screenOptions={{ headerShown: false }} />;
 }
+
 
 export default function Layout() {
     let [fontsLoaded] = useFonts({

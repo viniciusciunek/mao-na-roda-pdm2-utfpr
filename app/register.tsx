@@ -5,37 +5,18 @@ import useAuth from '../src/store/useAuth';
 
 import pb from '../src/services/pocketbase';
 import LoginButton from '../src/components/LoginButton';
-import TextInput from '../src/components/TextInput';
+import TextInput from '../src/components/CustomTextInput';
 
 import Svg, { Path } from "react-native-svg"
+import Toast from 'react-native-toast-message';
 
 export default function _screen() {
     const router = useRouter();
-    const { setData } = useAuth();
-
-    const [email, setEmail] = useState('dev@dev.com');
-    const [password, setPassword] = useState('developing@123');
-
-    const handleLogin = async () => {
-        try {
-            let authData = await pb.admins.authWithPassword(email, password);
-            setData({ user: authData.admin, token: authData.token, role: 'admin' });
-            router.replace('/(admin)/');
-        } catch (error) {
-            try {
-                let authData = await pb.collection('customers').authWithPassword(email, password);
-                setData({ user: authData.record, token: authData.token, role: 'customer' });
-                router.replace('/(customer)/');
-            } catch (error) {
-                console.log('Erro de Login', 'Usuário ou senha incorretos.');
-            }
-        }
-    };
 
     return (
-        <View className='m-2 gap-2'>
+        <View className='gap-2 m-2'>
             {/* <Stack.Screen options={{ headerShown: false }} /> */}
-            <View className='flex flex-col justify-center items-center'>
+            <View className='flex flex-col items-center justify-center'>
                 <Svg
                     width={260}
                     height={260}
@@ -68,19 +49,12 @@ export default function _screen() {
                 </Svg>
             </View>
 
-            <Text h3 className='text-center font-poppins_bold truncate mt-2'>Olá :)</Text>
-            <Text h3 className='text-center font-poppins_bold truncate'>Solicie ao Administrador para gerar uma senha para você!</Text>
+            <Text h3 className='mt-2 text-center truncate font-poppins_bold'>Olá :)</Text>
+            <Text h3 className='text-center truncate font-poppins_bold'>Solicie ao Administrador para gerar uma senha para você!</Text>
 
             <Link href="/" asChild>
-                <Text className='text-gray-600 underline text-center'>voltar para home...</Text>
+                <Text className='text-center text-gray-600 underline'>voltar para home...</Text>
             </Link>
-
-            {/* <View>
-                <TextInput value={email} onChangeText={setEmail} label="Email:" placeholder="Digite seu email." icon='user' iconType='antdesign' iconSize={18} iconColor="grey" />
-                <TextInput value={password} onChangeText={setPassword} label="Senha:" placeholder="Digite sua senha." icon='lock' iconType='antdesign' iconSize={18} iconColor="grey" />
-            </View>
-
-            <LoginButton text='Cadastrar-se' textColor='#FFFFFF' backgroundColor='#0E3087' borderColor='#ff0000' onPress={handleLogin} /> */}
         </View>
     )
 }

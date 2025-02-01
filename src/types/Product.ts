@@ -4,6 +4,4 @@ export type Product = {
     description: string;
     brand: string;
     price: number;
-    created?: string;
-    updated?: string;
 }

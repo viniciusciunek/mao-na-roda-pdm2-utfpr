@@ -1,6 +1,9 @@
+import React, { useEffect } from 'react';
+
+import AuthService from '../../src/services/authService';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
-import React from 'react';
+import useAuth from '../../src/store/useAuth';
 
 export default function TabLayout() {
     return (
@@ -28,51 +31,28 @@ export default function TabLayout() {
                 },
             }}
         >
-            <Tabs.Screen
-                name="home"
-                options={{
-                    title: 'Home',
-                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
-                }}
-            />
+            <Tabs.Screen name="home" options={{ title: 'Home', tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} /> }} />
 
-            <Tabs.Screen
-                name="budget/create"
-                options={{
-                    href: null,
-                    headerTitle: 'Criar Orçamento',
-                }}
-            />
+            <Tabs.Screen name="budget/create" options={{ href: null, headerTitle: 'Novo Orçamento' }} />
 
-            {/* Products */}
-            <Tabs.Screen
-                name="product/products"
-                options={{
-                    href: null,
-                    headerTitle: 'Lista dos Produtos',
-                    tabBarStyle: { display: 'none' }
-                }}
-            />
+            <Tabs.Screen name="budget/show" options={{ href: null, headerTitle: 'Visualizar Orçamento' }} />
 
-            <Tabs.Screen
-                name="product/create"
-                options={{
-                    href: null,
-                    headerTitle: 'Criar Produto',
-                    // tabBarHideOnKeyboard: true, // legal para esconder quando digita
-                    tabBarStyle: { display: 'none' }
-                }}
-            />
+            <Tabs.Screen name="budget/budgets" options={{ href: null, headerTitle: 'Orçamentos' }} />
 
-            <Tabs.Screen
-                name="product/view"
-                initialParams={{ id: '' }}
-                options={{
-                    href: null,
-                    headerTitle: 'Editando Produto',
-                    tabBarStyle: { display: 'none' }
-                }}
-            />
+            <Tabs.Screen name="product/products" options={{ href: null, headerTitle: 'Lista dos Produtos' }} />
+
+            <Tabs.Screen name="product/create" options={{ href: null, headerTitle: 'Criar Produto', tabBarStyle: { display: 'none' } }} />
+
+            <Tabs.Screen name="product/view" initialParams={{ id: '' }} options={{ href: null, headerTitle: 'Editando Produto', tabBarStyle: { display: 'none' } }} />
+
+            <Tabs.Screen name="customer/view" options={{ href: null, }} />
+
+            <Tabs.Screen name="customer/customers" options={{ href: null, }} />
+
+            <Tabs.Screen name="customer/create" options={{ href: null, }} />
+
+            <Tabs.Screen name="profile/home" options={{ title: 'Perfil', tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} /> }} />
         </Tabs>
+
     );
 }

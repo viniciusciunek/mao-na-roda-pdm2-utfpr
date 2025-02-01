@@ -1,22 +1,24 @@
-import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
+
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import React from 'react'
 
 interface SuccessButtonProps {
     label: string;
-    icon: string;
+    icon?: string;
     iconSize?: number;
     iconColor?: string;
     onPress?: () => void;
     right?: boolean;
+    style?: string;
 }
 
-export default function SuccessButton({ label, icon, iconSize = 24, iconColor, onPress, right = false }: SuccessButtonProps) {
+export default function SuccessButton({ label, icon, iconSize = 24, iconColor, onPress, right = false, style }: SuccessButtonProps) {
     return (
-        <TouchableOpacity className={`flex ${right ? 'flex-row' : 'flex-row-reverse'} items-center justify-center w-full gap-2 p-2 mt-2 text-center bg-green-800 rounded-xl h-14`} onPress={onPress}>
+        <TouchableOpacity className={`flex ${right ? 'flex-row' : 'flex-row-reverse'} items-center justify-evenly p-2 w-full text-center bg-green-500 rounded-md ${style} shadow`} onPress={onPress}>
             <Text className='font-bold text-white uppercase'>{label}</Text>
 
-            <FontAwesome6 name={icon || ''} color={iconColor} size={iconSize} />
+            {icon && <FontAwesome6 name={icon || ''} color={iconColor} size={iconSize} />}
         </TouchableOpacity>
     )
 }

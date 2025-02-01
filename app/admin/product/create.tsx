@@ -1,10 +1,11 @@
-import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native'
+import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import TextInput from '../../../src/components/TextInput'
-import SuccessButton from '../../../src/components/SuccessButton';
-import { router } from 'expo-router';
-import Toast from 'react-native-toast-message';
+
 import ProductRepository from '../../../src/database/ProductRepository';
+import SuccessButton from '../../../src/components/SuccessButton';
+import TextInput from '../../../src/components/CustomTextInput'
+import Toast from 'react-native-toast-message';
+import { router } from 'expo-router';
 
 const productRepository = new ProductRepository();
 
@@ -65,7 +66,7 @@ export default function _screen() {
             <TextInput label='Marca:' placeholder='Marca do Produto...' icon='layer-group' iconSize={18} iconColor='black' onChangeText={(value) => setBrand(value)} />
             <TextInput label='Preço:' placeholder='Preço do Produto...' icon='money-bill' iconSize={18} iconColor='black' onChangeText={(value) => setPrice(Number(value))} keyboardType='decimal-pad' />
 
-            <SuccessButton label='SALVAR' icon='check' iconColor='white' iconSize={18} onPress={handleSubmit} right />
+            <SuccessButton label='SALVAR' onPress={handleSubmit} style='mt-2' />
         </ScrollView >
     )
 }
