@@ -16,16 +16,21 @@ const budgetRepository = new BudgetRepository();
 export default function budgets() {
     const router = useRouter();
 
-    const [loading, setLoading] = useState(true);
-
     const [budgets, setBudgets] = useState<Budget[]>([]);
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     const fetchAllBudgets = async () => {
         try {
+            setLoading(true);
+
             const data = await budgetRepository.getAllBudgets()
 
             setBudgets(data);
         } catch (error) {
+            setError(true);
+
             setTimeout(async () => {
                 Toast.show({
                     type: 'error',

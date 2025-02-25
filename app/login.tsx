@@ -1,6 +1,6 @@
 import { Link, Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 import AuthService from '../src/services/authService';
 import LoginButton from '../src/components/LoginButton';
@@ -38,27 +38,29 @@ export default function LoginScreen() {
     };
 
     return (
-        <View className="flex flex-col justify-between w-full gap-2 m-auto h-5/6">
+        <View className="flex flex-col justify-between w-full h-screen gap-2">
             <Stack.Screen options={{ headerShown: false }} />
-            <View className="flex flex-col items-center justify-center">
-                <Mechanic />
-            </View>
+            <ScrollView>
+                <View className="flex flex-col items-center justify-center">
+                    <Mechanic />
+                </View>
 
-            <View className="gap-2 mx-2">
-                <Text className="text-center truncate font-poppins_bold">Faça seu login :)</Text>
+                <View className="gap-2 mx-2">
+                    <Text className="text-center truncate font-poppins_bold">Faça seu login :)</Text>
 
-                <TextInput value={email} onChangeText={setEmail} label="Email:" placeholder="Digite seu email." icon="user" iconSize={18} iconColor="grey" />
+                    <TextInput value={email} onChangeText={setEmail} label="Email:" placeholder="Digite seu email." icon="user" iconSize={18} iconColor="grey" />
 
-                <TextInput value={password} onChangeText={setPassword} label="Senha:" placeholder="Digite sua senha." icon="lock" iconSize={18} iconColor="grey" />
-            </View>
+                    <TextInput value={password} onChangeText={setPassword} label="Senha:" placeholder="Digite sua senha." icon="lock" iconSize={18} iconColor="grey" />
+                </View>
 
-            <View className="gap-2 mx-2">
-                <LoginButton text="Entrar" textColor="#FFFFFF" backgroundColor="#0E3087" borderColor="#ff0000" onPress={handleLogin} />
+                <View className="gap-2 mx-2">
+                    <LoginButton text="Entrar" textColor="#FFFFFF" backgroundColor="#0E3087" borderColor="#ff0000" onPress={handleLogin} />
 
-                <Link href="/" asChild>
-                    <Text className="text-center text-gray-600 underline">Esqueceu sua senha?</Text>
-                </Link>
-            </View>
+                    <Link href="/" asChild>
+                        <Text className="text-center text-gray-600 underline">Esqueceu sua senha?</Text>
+                    </Link>
+                </View>
+            </ScrollView>
         </View>
     );
 }

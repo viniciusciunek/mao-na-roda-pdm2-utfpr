@@ -40,7 +40,7 @@ export default function TabLayout() {
 
             <Tabs.Screen name="budget/budgets" options={{ href: null }} />
 
-            <Tabs.Screen name="profile/home" options={{ title: 'Perfil', tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} /> }} />
+            <Tabs.Screen name="profile/home" options={{ href: AuthService.isAuthenticated() ? 'customer/profile/home' : null, title: 'Perfil', tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} /> }} />
         </Tabs>
     );
 }

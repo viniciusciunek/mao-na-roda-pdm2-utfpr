@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, Text, Touchable, TouchableOpacity, View } from 'react-native'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import BudgetItemRepository from '../../../src/database/BudgetItemRepository';
 import BudgetRepository from '../../../src/database/BudgetRepository';
@@ -110,9 +109,7 @@ export default function _screen() {
 
         setTotal(total + (quantity * price));
 
-        // setProduct(null);
-        // setQuantity(0);
-        // setPrice(0);
+        resetFields()
     }
 
     const cancelBudget = () => {
@@ -229,86 +226,89 @@ export default function _screen() {
                     onValueChange={(value) => setCustomer(value)}
                 />
 
-                {/* {customer &&  */}
-                <View>
-                    <CustomPicker
-                        label="Selecione um produto:"
-                        items={productsItems}
-                        selectedValue={product}
-                        onValueChange={(value) => setProduct(value)}
-                    />
-
-                    <View className="flex flex-row items-end w-full gap-2">
-                        <View className="flex-1">
-                            <CustomTextInput
-                                label="Quantidade"
-                                placeholder="0"
-                                isNumeric={true}
-                                value={quantity.toString()}
-                                onChangeText={(value) => setQuantity(Number(value))}
+                {customer && (
+                    <View>
+                        <View>
+                            <CustomPicker
+                                label="Selecione um produto:"
+                                items={productsItems}
+                                selectedValue={product}
+                                onValueChange={(value) => setProduct(value)}
                             />
-                        </View>
 
-                        <View className="flex-1">
-                            <CustomCurrencyInput
-                                label="Valor:"
-                                prefix="R$"
-                                value={price}
-                                onChangeText={(value) => setPrice(value)}
-                            />
-                        </View>
+                            <View className="flex flex-row items-end w-full gap-2">
+                                <View className="flex-1">
+                                    <CustomTextInput
+                                        label="Quantidade"
+                                        placeholder="0"
+                                        isNumeric={true}
+                                        value={quantity.toString()}
+                                        onChangeText={(value) => setQuantity(Number(value))}
+                                    />
+                                </View>
 
-                        <TouchableOpacity className='w-1/4 h-10 p-1 rounded-md bg-darkBlue' onPress={() => addProduct()}>
-                            <Text className='text-2xl font-bold text-center text-white uppercase'>+</Text>
-                        </TouchableOpacity>
-                    </View>
+                                <View className="flex-1">
+                                    <CustomCurrencyInput
+                                        label="Valor:"
+                                        prefix="R$"
+                                        value={price}
+                                        onChangeText={(value) => setPrice(value)}
+                                    />
+                                </View>
 
-                    <View className='mt-2'>
-                        <View className='flex flex-row items-center justify-between w-full'>
-                            <Text className="w-1/3 p-2 text-center border font-nunito_xligth">DESCRIÇÃO</Text>
-                            <Text className="w-1/3 p-2 text-center border font-nunito_xligth">QTD.</Text>
-                            <Text className="w-1/3 p-2 text-center border font-nunito_xligth">VALOR</Text>
-                        </View>
-                        {budgetItems.map((item, index) => (
-                            <View key={index} className="flex flex-row items-center justify-between w-full">
-                                <Text className="w-1/3 p-2 text-center border font-nunito_xligth">{item.product.name}</Text>
-                                <Text className="w-1/3 p-2 text-center border font-nunito_xligth">{item.quantity}un</Text>
-                                <Text className="w-1/3 p-2 text-center border font-nunito_xligth">{`R$ ${item.price.toFixed(2)}`}</Text>
+                                <TouchableOpacity className='w-1/4 h-10 p-1 rounded-md bg-darkBlue' onPress={() => addProduct()}>
+                                    <Text className='text-2xl font-bold text-center text-white uppercase'>+</Text>
+                                </TouchableOpacity>
                             </View>
-                        ))}
 
-                        <View className='flex flex-row items-center justify-between w-full'>
-                            <Text className="w-full p-2 text-center border font-nunito_xligth"></Text>
+                            <View className='mt-2'>
+                                <View className='flex flex-row items-center justify-between w-full'>
+                                    <Text className="w-1/3 p-2 text-center border font-nunito_xligth">DESCRIÇÃO</Text>
+                                    <Text className="w-1/3 p-2 text-center border font-nunito_xligth">QTD.</Text>
+                                    <Text className="w-1/3 p-2 text-center border font-nunito_xligth">VALOR</Text>
+                                </View>
+                                {budgetItems.map((item, index) => (
+                                    <View key={index} className="flex flex-row items-center justify-between w-full">
+                                        <Text className="w-1/3 p-2 text-center border font-nunito_xligth">{item.product.name}</Text>
+                                        <Text className="w-1/3 p-2 text-center border font-nunito_xligth">{item.quantity}un</Text>
+                                        <Text className="w-1/3 p-2 text-center border font-nunito_xligth">{`R$ ${item.price.toFixed(2)}`}</Text>
+                                    </View>
+                                ))}
+
+                                <View className='flex flex-row items-center justify-between w-full'>
+                                    <Text className="w-full p-2 text-center border font-nunito_xligth"></Text>
+                                </View>
+
+                                <View className='flex flex-row items-center justify-between w-full'>
+                                    <Text className="w-1/2 p-2 text-center border font-nunito_xligth">VALOR TOTAL</Text>
+                                    <Text className="w-1/2 p-2 text-center border font-nunito_xligth">R$ {total.toFixed(2)}</Text>
+                                </View>
+                            </View>
                         </View>
 
-                        <View className='flex flex-row items-center justify-between w-full'>
-                            <Text className="w-1/2 p-2 text-center border font-nunito_xligth">VALOR TOTAL</Text>
-                            <Text className="w-1/2 p-2 text-center border font-nunito_xligth">R$ {total.toFixed(2)}</Text>
+                        <View>
+                            <CustomTextInput
+                                label="Observações:"
+                                multiline
+                                numberOfLines={4}
+                                textAlignVertical='top'
+                                placeholder="Digite aqui as observações do orçamento."
+                                value={obs}
+                                onChangeText={setObs}
+                            />
                         </View>
-                    </View>
-                </View>
-
-                <View>
-                    <CustomTextInput
-                        label="Observações:"
-                        multiline
-                        numberOfLines={4}
-                        textAlignVertical='top'
-                        placeholder="Digite aqui as observações do orçamento."
-                        value={obs}
-                        onChangeText={setObs}
-                    />
-                </View>
+                    </View>)}
 
                 <View className='flex flex-row w-full gap-2 mt-2 mb-6'>
                     <View className="flex-1">
                         <DangerButton label='cancelar' onPress={cancelBudget} />
                     </View>
-                    <View className="flex-1">
-                        <SuccessButton label='concluir' onPress={saveBudget} />
-                    </View>
+                    {customer && (
+                        <View className="flex-1">
+                            <SuccessButton label='concluir' onPress={saveBudget} />
+                        </View>
+                    )}
                 </View>
-                {/* } */}
             </View>
         </ScrollView>
     )

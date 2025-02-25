@@ -6,6 +6,8 @@ import Toast from 'react-native-toast-message'
 
 export default function approved() {
     useEffect(() => {
+        console.log('first')
+
         Toast.show({
             type: 'success',
             text1: 'Orçamento aprovado!',
