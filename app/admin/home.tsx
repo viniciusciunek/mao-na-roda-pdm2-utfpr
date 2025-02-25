@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import BudgetRepository from '../../src/database/BudgetRepository';
 import CardOption from '../../src/components/CardOption';
+import Loading from '../../src/components/Loading';
 import StatusBadge from '../../src/components/StatusBadge';
 import Toast from 'react-native-toast-message';
 
@@ -13,11 +14,19 @@ export default function _screen() {
     const [approvedCount, setApprovedCount] = useState(0);
     const [reprovedCount, setReprovedCount] = useState(0);
 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
     const fetchCount = async (status: string, setter: Function) => {
         try {
             const count = await budgetRepository.getCountByStatus(status);
+
             setter(count);
+
+            setLoading(false);
         } catch (error) {
+            setError(true);
+
             setTimeout(async () => {
                 Toast.show({
                     type: 'error',
@@ -26,6 +35,8 @@ export default function _screen() {
                     visibilityTime: 3000
                 });
             }, 100);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -33,9 +44,9 @@ export default function _screen() {
         fetchCount('pending_aprove', setPendingCount);
         fetchCount('approved', setApprovedCount);
         fetchCount('reproved', setReprovedCount);
-    }, []);
+    }, [pendingCount, approvedCount, reprovedCount]);
 
-
+    if (loading) return <Loading />
 
     return (
         <ScrollView>

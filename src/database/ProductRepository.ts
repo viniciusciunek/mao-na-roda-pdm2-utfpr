@@ -1,6 +1,7 @@
 import { IProductRepository } from "../interfaces/IProductRepository";
 import { Product } from "../types/Product";
 import pb from "../services/pocketbase";
+import { productSchema } from "../schemas/productSchema";
 
 export default class ProductRepository implements IProductRepository {
     async getAllProducts(): Promise<Product[]> {
@@ -8,7 +9,10 @@ export default class ProductRepository implements IProductRepository {
     }
 
     async getProductById(id: string): Promise<Product> {
-        return await pb.collection('products').getOne(id);
+        const record = await pb.collection("products").getOne(id);
+
+        return productSchema.parse(record);
+        // return await pb.collection('products').getOne(id);
     }
 
     async createProduct(product: Product): Promise<Product> {
